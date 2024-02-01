@@ -20,6 +20,13 @@ class VerifiedProductLoading extends QrScannerState {
   List<Object> get props => [];
 }
 
+class QrScanCompleted extends QrScannerState {
+  const QrScanCompleted();
+
+  @override
+  List<Object> get props => [];
+}
+
 class ShowSuccessMessage extends QrScannerState {
   const ShowSuccessMessage();
 

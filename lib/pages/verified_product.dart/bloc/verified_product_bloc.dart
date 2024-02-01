@@ -12,7 +12,6 @@ class VerifiedProductBloc extends Bloc<VerifiedProductEvent, VerifiedProductStat
   final ProductRepository _productRepository;
   VerifiedProductBloc(this._productRepository) : super(const VerifiedProductInitial()) {
     on<GetVerifiedProduct>((event, emit) => _getVerifiedProduct(emit));
-    // on<AddVerifiedProduct>((event, emit) => _addVerifiedProduct(emit, event.serialNo));
   }
 
   Future<void> _getVerifiedProduct(Emitter<VerifiedProductState> emit) async {
@@ -24,15 +23,4 @@ class VerifiedProductBloc extends Bloc<VerifiedProductEvent, VerifiedProductStat
       emit(VerifiedProductError(e.message));
     }
   }
-
-  // Future<void> _addVerifiedProduct(Emitter<VerifiedProductState> emit, String serialNo) async {
-  //   try {
-  //     emit(const VerifiedProductLoading());
-  //     final response = await _productRepository.addProduct(serialNo);
-  //     emit(VerifiedProductLoaded(response));
-  //     emit(const ShowSuccessMessage());
-  //   } on NetworkError catch (e) {
-  //     emit(VerifiedProductError(e.message));
-  //   }
-  // }
 }

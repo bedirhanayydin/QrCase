@@ -9,6 +9,7 @@ part 'qr_scanner_state.dart';
 
 class QrScannerBloc extends Bloc<QrScannerEvent, QrScannerState> {
   final ProductRepository _productRepository;
+
   QrScannerBloc(this._productRepository) : super(const QrScannerPageInitial()) {
     on<AddVerifiedProduct>((event, emit) => _addQrScanner(emit, event.serialNo));
   }
@@ -18,12 +19,14 @@ class QrScannerBloc extends Bloc<QrScannerEvent, QrScannerState> {
       emit(const VerifiedProductLoading());
       final response = await _productRepository.addProduct(serialNo);
       if (response.isError) {
-        emit(const QrScannerError("Lütfen tekrar deneyiniz!"));
+        emit(QrScannerError(response.error?.message ?? "Hata"));
       } else {
         emit(const ShowSuccessMessage());
       }
+      emit(const QrScanCompleted());
     } on NetworkError catch (e) {
       emit(QrScannerError(e.message));
+      emit(const QrScanCompleted());
     }
   }
 }

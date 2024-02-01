@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void dispose() {
     _pageControlller.dispose();
+    super.dispose();
   }
 
   @override
@@ -49,7 +50,10 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         backgroundColor: ColorConstants.instance.floatingActionButtonColor,
-        child: const Icon(Icons.qr_code_scanner_sharp),
+        child: const Icon(
+          Icons.qr_code_scanner_sharp,
+          size: 30,
+        ),
       ),
       extendBody: true,
       bottomNavigationBar: RollingBottomBar(

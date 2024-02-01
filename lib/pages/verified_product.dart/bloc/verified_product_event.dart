@@ -6,10 +6,3 @@ abstract class VerifiedProductEvent {}
 class GetVerifiedProduct extends VerifiedProductEvent {
   GetVerifiedProduct();
 }
-
-// class AddVerifiedProduct extends VerifiedProductEvent {
-//   String serialNo;
-//   AddVerifiedProduct(
-//     this.serialNo,
-//   );
-// }

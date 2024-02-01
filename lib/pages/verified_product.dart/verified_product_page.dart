@@ -60,7 +60,7 @@ class _ProductsPageState extends State<VerifiedProductsPage> {
           }
 
           return ListView.builder(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.fromLTRB(12, 12, 12, 120),
             physics: const AlwaysScrollableScrollPhysics(),
             itemCount: state.cachedProducts.length,
             itemBuilder: (context, index) {

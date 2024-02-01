@@ -1,8 +1,10 @@
 import 'dart:convert';
+
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:qr_example/data/model/network_error.dart';
 import 'package:qr_example/data/model/product_repository_response.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../model/product.dart';
 import 'iproduct_repository.dart';
@@ -22,7 +24,6 @@ class ProductRepository extends IProductRepository {
 
       return productList;
     } catch (e) {
-      // Handle any errors during the process
       throw NetworkError('Error loading data from asset', '500');
     }
   }
@@ -71,13 +72,13 @@ class ProductRepository extends IProductRepository {
 
         if (!isProductAlreadyCached) {
           // Cache the matching product
-          String matchingProductJson = json.encode(matchingProducts.map((product) => product.toJson()).toList());
+          // String matchingProductJson = json.encode(matchingProducts.map((product) => product.toJson()).toList());
           cachedProducts.add(matchingProducts[0]);
           prefs.setString(_productKeyName, json.encode(cachedProducts));
+          return ProductRepositoryResponse.success(cachedProducts);
+        } else {
+          return ProductRepositoryResponse.error(NetworkError('Product is already exists', '2323'));
         }
-
-        // Return the updated list of matching products
-        return ProductRepositoryResponse.success(cachedProducts);
       } else {
         return ProductRepositoryResponse.error(NetworkError('Product not found', '404'));
       }

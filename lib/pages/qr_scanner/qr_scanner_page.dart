@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,28 +34,27 @@ class _QrScannerPageState extends State<QrScannerPage> {
     super.dispose();
   }
 
-  @override
-  void reassemble() {
-    super.reassemble();
-    if (Platform.isAndroid) {
-      controller.pauseCamera();
-    }
-    controller.resumeCamera();
-  }
-
+  // @override
+  // void reassemble() {
+  //   super.reassemble();
+  //   if (Platform.isAndroid) {
+  //     controller.pauseCamera();
+  //   }
+  //   controller.resumeCamera();
+  // }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<QrScannerBloc, QrScannerState>(
       listener: (context, state) {
         if (state is ShowSuccessMessage) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Product added successfully!'),
-              duration: Duration(seconds: 2),
+            SnackBar(
+              content: const Text('Product added successfully!'),
+              duration: const Duration(seconds: 2),
+              backgroundColor: ColorConstants.instance.green,
             ),
           );
-        }
-        if (state is QrScannerError) {
+        } else if (state is QrScannerError) {
           final error = state;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -79,7 +76,6 @@ class _QrScannerPageState extends State<QrScannerPage> {
             middle: const Text("Qr Scanner Page"),
             leading: GestureDetector(
               onTap: () {
-                // Dispose of the controller and stop scanning when navigating back
                 controller.dispose();
                 Navigator.pop(context);
               },
@@ -90,10 +86,9 @@ class _QrScannerPageState extends State<QrScannerPage> {
             ),
             backgroundColor: ColorConstants.instance.headerColor,
           ),
-          body: Column(
+          body: Stack(
             children: [
-              Expanded(
-                flex: 9,
+              Positioned.fill(
                 child: QRView(
                   key: _qrKey,
                   onQRViewCreated: _onQRViewCreated,
@@ -106,8 +101,10 @@ class _QrScannerPageState extends State<QrScannerPage> {
                   ),
                 ),
               ),
-              Expanded(
-                flex: 1,
+              Positioned(
+                bottom: 100,
+                left: 0,
+                right: 0,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -117,9 +114,9 @@ class _QrScannerPageState extends State<QrScannerPage> {
                         await controller.pauseCamera();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorConstants.instance.floatingActionButtonColor, // Arka plan rengi
+                        backgroundColor: ColorConstants.instance.floatingActionButtonColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0), // Radius
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
                       child: Text('Pause', style: TextThemeLight.instance!.primary),
@@ -129,9 +126,9 @@ class _QrScannerPageState extends State<QrScannerPage> {
                         await controller.resumeCamera();
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: ColorConstants.instance.floatingActionButtonColor, // Arka plan rengi
+                        backgroundColor: ColorConstants.instance.floatingActionButtonColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0), // Radius
+                          borderRadius: BorderRadius.circular(10.0),
                         ),
                       ),
                       child: Text('Resume', style: TextThemeLight.instance!.primary),
@@ -150,24 +147,10 @@ class _QrScannerPageState extends State<QrScannerPage> {
     this.controller = controller;
     controller.scannedDataStream.listen((barcode) async {
       if (barcode.format == BarcodeFormat.qrcode && barcode.code != null) {
-        // context.read<QrScannerBloc>().add(AddVerifiedProduct(
-        //       barcode.code.toString(),
-        //     ));
+        controller.pauseCamera();
         _qrScannerBloc.add(AddVerifiedProduct(barcode.code.toString()));
-        await controller.pauseCamera();
-        controller.dispose();
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => MultiBlocProvider(
-        //       providers: [
-        //         BlocProvider(create: (context) => ProductBloc(ProductRepository())),
-        //         BlocProvider(create: (context) => VerifiedProductBloc(ProductRepository())),
-        //       ],
-        //       child: const HomePage(),
-        //     ),
-        //   ),
-        // );
+        await Future.delayed(const Duration(milliseconds: 1000), () {});
+        await controller.resumeCamera();
       }
     });
   }

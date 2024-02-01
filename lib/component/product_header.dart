@@ -32,7 +32,7 @@ class ProductHeader extends StatelessWidget {
               height: 2,
             ),
             Text(
-              serialNo,
+              'Seri No: $serialNo',
               style: TextThemeLight.instance!.secondary,
               maxLines: 4,
               overflow: TextOverflow.ellipsis,

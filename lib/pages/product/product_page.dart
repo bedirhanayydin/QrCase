@@ -38,7 +38,7 @@ class _ProductsPageState extends State<ProductsPage> {
           );
         } else if (state is ProductLoaded) {
           return ListView(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.fromLTRB(12, 12, 12, 120),
             physics: const AlwaysScrollableScrollPhysics(),
             children: state.product.map(
               (e) {

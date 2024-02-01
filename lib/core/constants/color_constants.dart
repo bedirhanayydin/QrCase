@@ -13,6 +13,6 @@ class ColorConstants {
   Color get floatingActionButtonColor => const Color.fromARGB(255, 246, 136, 1);
   Color get headerColor => const Color.fromARGB(172, 75, 75, 76);
   Color get white => const Color.fromARGB(255, 252, 252, 252);
-  Color get green => Colors.green;
+  Color get green => const Color.fromARGB(237, 101, 236, 105);
   Color get black => Colors.black;
 }

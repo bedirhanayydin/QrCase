@@ -45,6 +45,13 @@ class ShowSuccessMessage extends VerifiedProductState {
   List<Object> get props => [];
 }
 
+class VerifiedProductAdded extends VerifiedProductState {
+  const VerifiedProductAdded();
+
+  @override
+  List<Object> get props => [];
+}
+
 class VerifiedProductError extends VerifiedProductState {
   final String message;
   const VerifiedProductError(this.message);
