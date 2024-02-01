@@ -5,6 +5,10 @@ Uygulama başladığında, liste görünümünde bir yükleniyor efekti ile göl
 
 Daha önce belirli ürünlerin seri numaralarını baz alarak oluşturduğum QR kodları, okutulduğunda uygulama, yerel JSON dosyasındaki bilgilerle eşleşiyorsa, bu ürünü barkod okutulmuş ürünler listesine ekler. Eğer okunan QR kod, yerel veriler arasında bulunmayan bir ürünü temsil ediyorsa, hata mesajı gösterilir. Ayrıca, daha önce okutulmuş bir barkod tekrar okunduğunda da bir hata mesajı görüntülenir.
 
+
+https://github.com/bedirhanayydin/QrCase/assets/58737803/14545f95-8051-493f-9d43-3385f03504c2
+
+
 <img width="236"  src="https://github.com/bedirhanayydin/QrCase/assets/58737803/d8c76930-f2de-4113-9226-9348fe795900">
 
 <img width="236"  src="https://github.com/bedirhanayydin/QrCase/assets/58737803/9500612c-7de9-4d8a-868c-e03afd4b4326">
